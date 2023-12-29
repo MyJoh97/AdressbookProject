@@ -4,6 +4,7 @@ using Microsoft.VisualBasic.FileIO;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -33,6 +34,8 @@ namespace Adressbook.Services
                 DisplayMenuTitle("CONTACT MENU");
                 Console.WriteLine($"{"1.",-3} Add new contact");
                 Console.WriteLine($"{"2.",-3} View all contacts");
+                Console.WriteLine($"{"3.",-3} Search contact");
+                Console.WriteLine($"{"4.",-3} Delete contact");
                 Console.WriteLine($"{"0.",-3} Exit Contact Application");
                 Console.WriteLine();
                 Console.Write("Enter your contact menu option: ");
@@ -46,6 +49,10 @@ namespace Adressbook.Services
 
                     case "2":
                         ShowViewPersonListOption();
+                        break;
+
+                    case "3":
+                        SearchContactByEmail();
                         break;
 
                     case "0":
@@ -133,13 +140,51 @@ namespace Adressbook.Services
 
                         foreach (var personInfo in personList)
                         {
-                            Console.WriteLine($"{personInfo.FirstName} {personInfo.LastName} <{personInfo.Email}> {personInfo.PhoneNumber} {personInfo.Address}");
+                            Console.WriteLine($"{personInfo.FirstName} {personInfo.LastName} <{personInfo.PhoneNumber}> {personInfo.Email} - {personInfo.Address}");
                         }
                     }
                 }
             }
 
             DisplayPressAnyKey();
+        }
+
+        private void SearchContactByEmail()
+        {
+            Console.Clear();
+            Console.Write("## Search contact by email ##\n");
+            Console.WriteLine();
+            Console.Write("Please enter the contacts email:\n");
+            string email = Console.ReadLine();
+
+            var serviceResult = _personInfoService.GetPersonsInfoFromList();
+            if (serviceResult.Status == Enums.ServiceStatus.SUCCESSED)
+            {
+                var personList = serviceResult.Result as List<IPersonInfo>;
+                var person = personList.FirstOrDefault(p => p.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+                if (person != null)
+                {
+                    Console.WriteLine("Contact found:");
+                    Console.WriteLine($"{person.FirstName} {person.LastName} <{person.Email}> {person.PhoneNumber} - {person.Address}");
+                }
+                else
+                {
+                    Console.WriteLine("Contact not found.");
+                }
+            }
+            else
+            {
+                Console.WriteLine("Unable to retrieve contacts.");
+            }
+
+            DisplayPressAnyKey();
+        }
+
+
+        private void UpdatePersonInfoToList()
+        {
+
         }
 
         private void DisplayMenuTitle(string title)

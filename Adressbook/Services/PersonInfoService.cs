@@ -81,6 +81,38 @@ namespace Adressbook.Services
             }
             return response;
         }
+
+        public IServiceResult UpdatePersonInfoInList(PersonInfo updatedPersonInfo)
+        {
+            var response = new ServiceResult();
+            try
+            {
+                var person = _personInfos.FirstOrDefault(p => p.Email == updatedPersonInfo.Email);
+                if (person != null)
+                {
+                    // Update the details
+                    person.FirstName = updatedPersonInfo.FirstName;
+                    person.LastName = updatedPersonInfo.LastName;
+                    person.PhoneNumber = updatedPersonInfo.PhoneNumber;
+                    person.Address = updatedPersonInfo.Address;
+                    // Save the updated list
+                    string jsonContent = JsonConvert.SerializeObject(_personInfos);
+                    _fileService.SaveContentToFile(jsonContent);
+                    response.Status = Enums.ServiceStatus.UPDATED;
+                }
+                else
+                {
+                    response.Status = Enums.ServiceStatus.NOT_FOUND;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                response.Status = Enums.ServiceStatus.FAILED;
+                response.Result = ex.Message;
+            }
+            return response;
+        }
     }
 }
 

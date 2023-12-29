@@ -12,9 +12,9 @@ namespace Adressbook.Interfaces
         //ServiceResult GetPersonInfoByEmailFromList(string email);
         IServiceResult GetPersonsInfoFromList();
 
-        //ServiceResult UpdatePersonInfoInList(PersonInfo personInfo);
-        //ServiceResult DeletePersonIfoFromList(Func<PersonInfo, bool> predicate);
-        //ServiceResult DeletePersonIfoFromList(Func<PersonInfo, bool> predicate);
+        IServiceResult UpdatePersonInfoInList(PersonInfo personInfo);
+        
+        //ServiceResult DeletePersonInfoFromList(Func<PersonInfo, bool> predicate);
     }
 }
 
