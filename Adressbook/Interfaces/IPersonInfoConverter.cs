@@ -19,7 +19,7 @@ namespace Adressbook.Interfaces
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
             JObject jsonObject = JObject.Load(reader);
-            var personInfo = new PersonInfo(); 
+            var personInfo = new PersonInfo();
             serializer.Populate(jsonObject.CreateReader(), personInfo);
             return personInfo;
         }

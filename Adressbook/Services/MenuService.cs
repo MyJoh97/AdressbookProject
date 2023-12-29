@@ -130,7 +130,7 @@ namespace Adressbook.Services
                     }
                     else
                     {
-                        
+
                         foreach (var personInfo in personList)
                         {
                             Console.WriteLine($"{personInfo.FirstName} {personInfo.LastName} <{personInfo.Email}> {personInfo.PhoneNumber} {personInfo.Address}");
