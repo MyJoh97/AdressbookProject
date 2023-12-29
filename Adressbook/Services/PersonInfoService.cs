@@ -95,9 +95,11 @@ namespace Adressbook.Services
                     person.LastName = updatedPersonInfo.LastName;
                     person.PhoneNumber = updatedPersonInfo.PhoneNumber;
                     person.Address = updatedPersonInfo.Address;
-                    // Save the updated list
+
+                    // Serialize the entire list and save it to the file
                     string jsonContent = JsonConvert.SerializeObject(_personInfos);
                     _fileService.SaveContentToFile(jsonContent);
+
                     response.Status = Enums.ServiceStatus.UPDATED;
                 }
                 else
@@ -112,6 +114,12 @@ namespace Adressbook.Services
                 response.Result = ex.Message;
             }
             return response;
+        }
+
+        public void SavePersonsInfoToFile()
+        {
+            string jsonContent = JsonConvert.SerializeObject(_personInfos);
+            _fileService.SaveContentToFile(jsonContent);
         }
     }
 }

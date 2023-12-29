@@ -35,6 +35,7 @@ namespace Adressbook.Services
                 Console.WriteLine($"{"1.",-3} Add new contact");
                 Console.WriteLine($"{"2.",-3} View all contacts");
                 Console.WriteLine($"{"3.",-3} Search contact");
+                Console.WriteLine($"{"4.",-3} Update contact information");
                 Console.WriteLine($"{"4.",-3} Delete contact");
                 Console.WriteLine($"{"0.",-3} Exit Contact Application");
                 Console.WriteLine();
@@ -55,6 +56,9 @@ namespace Adressbook.Services
                         SearchContactByEmail();
                         break;
 
+                    case "4":
+                        UpdatePersonInfoInList();
+                        break;
                     case "0":
                         ShowExitApplicationOption();
                         break;
@@ -182,10 +186,76 @@ namespace Adressbook.Services
         }
 
 
-        private void UpdatePersonInfoToList()
+        private void UpdatePersonInfoInList()
         {
+            Console.Clear();
+            Console.Write("Enter the email of the contact to update:\n");
+            string email = Console.ReadLine();
+
+            // Retrieve the list of contacts
+            var result = _personInfoService.GetPersonsInfoFromList();
+            if (result.Status != Enums.ServiceStatus.SUCCESSED)
+            {
+                Console.WriteLine("Unable to retrieve contacts.");
+                return;
+            }
+
+            // Search for the contact
+            var personList = (List<IPersonInfo>)result.Result;
+            var personToUpdate = personList.FirstOrDefault(p => p.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
+
+            if (personToUpdate == null)
+            {
+                Console.WriteLine("Contact does not exist.");
+                return;
+            }
+
+            // Update contact information
+            Console.Write("First Name: ");
+            var newFirstName = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newFirstName))
+            {
+                personToUpdate.FirstName = newFirstName;
+            }
+
+            Console.Write("Last Name: ");
+            var newLastName = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newLastName))
+            {
+                personToUpdate.LastName = newLastName;
+            }
+
+            Console.Write("PhoneNumber: ");
+            var newPhoneNumber = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newPhoneNumber))
+            {
+                personToUpdate.PhoneNumber = newPhoneNumber;
+            }
+
+            Console.Write("Email: ");
+            var newEmail = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newEmail))
+            {
+                personToUpdate.Email = newEmail;
+            }
+
+            Console.Write("First Name: ");
+            var newAdress = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(newAdress))
+            {
+                personToUpdate.Address = newAdress;
+            }
+
+            // Add similar prompts for other fields like PhoneNumber, Address...
+
+            // Save the updated list to the file
+            _personInfoService.SavePersonsInfoToFile();
+
+            Console.WriteLine("Contact updated successfully.");
 
         }
+    
+
 
         private void DisplayMenuTitle(string title)
         {

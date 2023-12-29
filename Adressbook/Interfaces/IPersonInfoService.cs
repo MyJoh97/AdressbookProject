@@ -11,7 +11,7 @@ namespace Adressbook.Interfaces
         IServiceResult AddPersonInfoToList(IPersonInfo personInfo);
         //ServiceResult GetPersonInfoByEmailFromList(string email);
         IServiceResult GetPersonsInfoFromList();
-
+        void SavePersonsInfoToFile();
         IServiceResult UpdatePersonInfoInList(PersonInfo personInfo);
         
         //ServiceResult DeletePersonInfoFromList(Func<PersonInfo, bool> predicate);
