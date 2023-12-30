@@ -23,6 +23,10 @@ namespace Adressbook.Services
             LoadContactsFromFile();
         }
 
+        public PersonInfoService()
+        {
+        }
+
         private void LoadContactsFromFile()
         {
             var content = _fileService.GetContentFromFile();
@@ -148,6 +152,11 @@ namespace Adressbook.Services
                 response.Result = ex.Message;
             }
             return response;
+        }
+
+        public bool AddPesonInfoToList(IPersonInfo personInfo)
+        {
+            throw new NotImplementedException();
         }
     }
 }

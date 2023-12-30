@@ -15,6 +15,7 @@ namespace Adressbook.Interfaces
         IServiceResult UpdatePersonInfoInList(PersonInfo personInfo);
 
         IServiceResult DeletePersonInfo(string email);
+        bool AddPesonInfoToList(IPersonInfo personInfo);
         //ServiceResult DeletePersonInfoFromList(Func<PersonInfo, bool> predicate);
     }
 }
