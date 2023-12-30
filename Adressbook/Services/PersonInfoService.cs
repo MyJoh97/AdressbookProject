@@ -28,6 +28,7 @@ namespace Adressbook.Services
             var content = _fileService.GetContentFromFile();
             if (!string.IsNullOrEmpty(content))
             {
+                
                 _personInfos = JsonConvert.DeserializeObject<List<IPersonInfo>>(content, new JsonSerializerSettings
                 {
                     Converters = new List<JsonConverter> { new IPersonInfoConverter() }
@@ -90,13 +91,13 @@ namespace Adressbook.Services
                 var person = _personInfos.FirstOrDefault(p => p.Email == updatedPersonInfo.Email);
                 if (person != null)
                 {
-                    // Update the details
+                    // Uppdaterar kontaktuppgifterna som man ändrar i programmet.
                     person.FirstName = updatedPersonInfo.FirstName;
                     person.LastName = updatedPersonInfo.LastName;
                     person.PhoneNumber = updatedPersonInfo.PhoneNumber;
                     person.Address = updatedPersonInfo.Address;
 
-                    // Serialize the entire list and save it to the file
+                    // Sparar den uppdaterade kontaktlistan till Json filen.
                     string jsonContent = JsonConvert.SerializeObject(_personInfos);
                     _fileService.SaveContentToFile(jsonContent);
 

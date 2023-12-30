@@ -18,10 +18,18 @@ namespace Adressbook.Interfaces
 
         public override object ReadJson(JsonReader reader, Type objectType, object existingValue, JsonSerializer serializer)
         {
-            JObject jsonObject = JObject.Load(reader);
-            var personInfo = new PersonInfo();
-            serializer.Populate(jsonObject.CreateReader(), personInfo);
-            return personInfo;
+            try
+            {
+                JObject jsonObject = JObject.Load(reader);
+                var personInfo = new PersonInfo();
+                serializer.Populate(jsonObject.CreateReader(), personInfo);
+                return personInfo;
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Error reading JSON in IPersonInfoConverter: " + ex.Message);
+                throw;
+            }
         }
 
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)

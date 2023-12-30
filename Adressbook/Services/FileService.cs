@@ -30,11 +30,7 @@ namespace Adressbook.Services
         {
             try
             {
-                using (var sw = new StreamWriter(_filePath, true)) // Use 'true' for append mode
-                {
-                    sw.WriteLine(content);
-                }
-
+                File.WriteAllText(_filePath, content); // This will overwrite the file with new content
                 return true;
             }
             catch (Exception ex)
