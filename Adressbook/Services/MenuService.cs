@@ -36,7 +36,7 @@ namespace Adressbook.Services
                 Console.WriteLine($"{"2.",-3} View all contacts");
                 Console.WriteLine($"{"3.",-3} Search contact");
                 Console.WriteLine($"{"4.",-3} Update contact information");
-                Console.WriteLine($"{"4.",-3} Delete contact");
+                Console.WriteLine($"{"5.",-3} Delete contact");
                 Console.WriteLine($"{"0.",-3} Exit Contact Application");
                 Console.WriteLine();
                 Console.Write("Enter your contact menu option: ");
@@ -239,7 +239,7 @@ namespace Adressbook.Services
                 personToUpdate.Email = newEmail;
             }
 
-            Console.Write("First Name: ");
+            Console.Write("Adress: ");
             var newAdress = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(newAdress))
             {
