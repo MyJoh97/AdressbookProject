@@ -149,7 +149,7 @@ namespace Adressbook.Services
 
                         foreach (var personInfo in personList)
                         {
-                            Console.WriteLine($"{personInfo.FirstName} {personInfo.LastName} <{personInfo.PhoneNumber}> {personInfo.Email} - {personInfo.Address}");
+                            Console.WriteLine($"{personInfo.FirstName} {personInfo.LastName} - {personInfo.PhoneNumber} <{personInfo.Email}> {personInfo.Address}");
                         }
                     }
                 }
@@ -175,7 +175,7 @@ namespace Adressbook.Services
                 if (person != null)
                 {
                     Console.WriteLine("Contact found:");
-                    Console.WriteLine($"{person.FirstName} {person.LastName} <{person.Email}> {person.PhoneNumber} - {person.Address}");
+                    Console.WriteLine($"{person.FirstName} {person.LastName} - {person.PhoneNumber} <{person.Email}> {person.Address}");
                 }
                 else
                 {
