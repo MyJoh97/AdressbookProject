@@ -59,6 +59,11 @@ namespace Adressbook.Services
                     case "4":
                         UpdatePersonInfoInList();
                         break;
+
+                    case "5":
+                        DeletePersonInfo();
+                        break;
+
                     case "0":
                         ShowExitApplicationOption();
                         break;
@@ -254,7 +259,40 @@ namespace Adressbook.Services
             Console.WriteLine("Contact updated successfully.");
 
         }
-    
+
+        private void DeletePersonInfo()
+        {
+            Console.Clear();
+            Console.WriteLine("Enter the email of the contact you want to delete:\n");
+            string emailToDelete = Console.ReadLine();
+
+            // Debugging output to check the input email
+            Console.WriteLine("Searching for email: " + emailToDelete);
+
+            var deleteResult = _personInfoService.DeletePersonInfo(emailToDelete);
+            if (deleteResult.Status == Enums.ServiceStatus.SUCCESSED)
+            {
+                Console.WriteLine("Contact deleted successfully.");
+            }
+            else if (deleteResult.Status == Enums.ServiceStatus.NOT_FOUND)
+            {
+                Console.WriteLine("Contact not found.");
+                // Debugging output to check the emails in your contact list
+                var contactList = _personInfoService.GetPersonsInfoFromList().Result as List<IPersonInfo>;
+                if (contactList != null)
+                {
+                    Console.WriteLine("Emails in contact list:");
+                    foreach (var contact in contactList)
+                    {
+                        Console.WriteLine(contact.Email);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("Failed to delete contact. Please try again.");
+            }
+        }
 
 
         private void DisplayMenuTitle(string title)

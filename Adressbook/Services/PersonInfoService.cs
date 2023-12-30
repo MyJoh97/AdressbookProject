@@ -122,6 +122,33 @@ namespace Adressbook.Services
             string jsonContent = JsonConvert.SerializeObject(_personInfos);
             _fileService.SaveContentToFile(jsonContent);
         }
+
+        public IServiceResult DeletePersonInfo(string email)
+        {
+            var response = new ServiceResult();
+            try
+            {
+                var person = _personInfos.FirstOrDefault(p => p.Email == email);
+                if (person != null)
+                {
+                    _personInfos.Remove(person);
+                    string jsonContent = JsonConvert.SerializeObject(_personInfos);
+                    _fileService.SaveContentToFile(jsonContent);
+                    response.Status = Enums.ServiceStatus.SUCCESSED;
+                }
+                else
+                {
+                    response.Status = Enums.ServiceStatus.NOT_FOUND;
+                }
+            }
+            catch (Exception ex)
+            {
+                Debug.WriteLine(ex.Message);
+                response.Status = Enums.ServiceStatus.FAILED;
+                response.Result = ex.Message;
+            }
+            return response;
+        }
     }
 }
 

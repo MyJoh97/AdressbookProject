@@ -13,7 +13,8 @@ namespace Adressbook.Interfaces
         IServiceResult GetPersonsInfoFromList();
         void SavePersonsInfoToFile();
         IServiceResult UpdatePersonInfoInList(PersonInfo personInfo);
-        
+
+        IServiceResult DeletePersonInfo(string email);
         //ServiceResult DeletePersonInfoFromList(Func<PersonInfo, bool> predicate);
     }
 }
