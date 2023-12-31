@@ -21,7 +21,7 @@ namespace Adressbook.Services
     {
         private readonly IPersonInfoService _personInfoService;
 
-        // Constructor with dependency injection
+        
         public MenuService(IPersonInfoService personInfoService)
         {
             _personInfoService = personInfoService;
@@ -149,7 +149,7 @@ namespace Adressbook.Services
 
                         foreach (var personInfo in personList)
                         {
-                            Console.WriteLine($"{personInfo.FirstName} {personInfo.LastName} - {personInfo.PhoneNumber} <{personInfo.Email}> {personInfo.Address}");
+                            Console.WriteLine($"FirstName: {personInfo.FirstName} LastName: {personInfo.LastName} PhoneNumber: {personInfo.PhoneNumber} Email: {personInfo.Email} Adress: {personInfo.Address}");
                         }
                     }
                 }
@@ -175,7 +175,7 @@ namespace Adressbook.Services
                 if (person != null)
                 {
                     Console.WriteLine("Contact found:");
-                    Console.WriteLine($"{person.FirstName} {person.LastName} - {person.PhoneNumber} <{person.Email}> {person.Address}");
+                    Console.WriteLine($"FirstName: {person.FirstName} LastName: {person.LastName} PhoneNumber: {person.PhoneNumber} Email: {person.Email} Adress: {person.Address}");
                 }
                 else
                 {
@@ -197,7 +197,7 @@ namespace Adressbook.Services
             Console.Write("Enter the email of the contact to update:\n");
             string email = Console.ReadLine();
 
-            // Retrieve the list of contacts
+            // Hämtar listan av kontakter.
             var result = _personInfoService.GetPersonsInfoFromList();
             if (result.Status != Enums.ServiceStatus.SUCCESSED)
             {
@@ -205,7 +205,7 @@ namespace Adressbook.Services
                 return;
             }
 
-            // Search for the contact
+            // Letar efter kontakten.
             var personList = (List<IPersonInfo>)result.Result;
             var personToUpdate = personList.FirstOrDefault(p => p.Email.Equals(email, StringComparison.OrdinalIgnoreCase));
 
@@ -215,7 +215,7 @@ namespace Adressbook.Services
                 return;
             }
 
-            // Update contact information
+            // Uppdaterar kontaktinformationen.
             Console.Write("First Name: ");
             var newFirstName = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(newFirstName))
@@ -251,9 +251,9 @@ namespace Adressbook.Services
                 personToUpdate.Address = newAdress;
             }
 
-            // Add similar prompts for other fields like PhoneNumber, Address...
+           
 
-            // Save the updated list to the file
+            // Sparar den uppdaterade listan till filen.
             _personInfoService.SavePersonsInfoToFile();
 
             Console.WriteLine("Contact updated successfully.");
@@ -266,7 +266,7 @@ namespace Adressbook.Services
             Console.WriteLine("Enter the email of the contact you want to delete:\n");
             string emailToDelete = Console.ReadLine();
 
-            // Debugging output to check the input email
+            
             Console.WriteLine("Searching for email: " + emailToDelete);
 
             var deleteResult = _personInfoService.DeletePersonInfo(emailToDelete);
@@ -277,7 +277,7 @@ namespace Adressbook.Services
             else if (deleteResult.Status == Enums.ServiceStatus.NOT_FOUND)
             {
                 Console.WriteLine("Contact not found.");
-                // Debugging output to check the emails in your contact list
+                
                 var contactList = _personInfoService.GetPersonsInfoFromList().Result as List<IPersonInfo>;
                 if (contactList != null)
                 {

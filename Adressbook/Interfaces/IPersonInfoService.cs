@@ -9,19 +9,17 @@ namespace Adressbook.Interfaces
     public interface IPersonInfoService
     {
         IServiceResult AddPersonInfoToList(IPersonInfo personInfo);
-        //ServiceResult GetPersonInfoByEmailFromList(string email);
+        
         IServiceResult GetPersonsInfoFromList();
         void SavePersonsInfoToFile();
         IServiceResult UpdatePersonInfoInList(PersonInfo personInfo);
 
         IServiceResult DeletePersonInfo(string email);
         bool AddPesonInfoToList(IPersonInfo personInfo);
-        //ServiceResult DeletePersonInfoFromList(Func<PersonInfo, bool> predicate);
+        
     }
 }
 
 
 
 
-// Lambda expression (personInfo) => personInfo.FirstName == "My"
-// Vad som kallas för FUNC ovanför.

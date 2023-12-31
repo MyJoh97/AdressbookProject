@@ -1,24 +1,26 @@
-﻿using Adressbook.Interfaces;
+﻿using Adressbook.Enums;
+using Adressbook.Interfaces;
 using Adressbook.Models;
 using Adressbook.Services;
-using Xunit; // Make sure you have this using directive for xUnit
+using Xunit;
 
 namespace Adressbook.Tests
 {
     public class PersonInfoService_Tests
     {
         [Fact]
-        public void AddToListShould_AddOnePersonInfoToPersonInfoList_ThenReturnTrue()
+        public void AddToListShould_AddOnePersonInfoToPersonInfoList_ThenReturnSuccessStatus()
         {
             // Arrange
             IPersonInfo personInfo = new PersonInfo();
-            IPersonInfoService personInfoService = new PersonInfoService();
+            var fileService = new FileService();
+            IPersonInfoService personInfoService = new PersonInfoService(fileService);
 
-            // Act
-            bool result = personInfoService.AddPesonInfoToList(personInfo);
+            // Act: Utför den handling som ska testas.
+            IServiceResult result = personInfoService.AddPersonInfoToList(personInfo);
 
-            // Assert
-            Assert.True(result); // Assert that result is true
+            // Assert: Kontrollerar så att resultatet blev som det skulle.
+            Assert.Equal(ServiceStatus.SUCCESSED, result.Status);
         }
     }
 }

@@ -14,12 +14,11 @@ namespace Adressbook
     {
         static void Main(string[] args)
         {
-            // Create instances of services with their dependencies
             var fileService = new FileService(@"c:\Projects\CSharp\Adressbook\contacts.json");
             var personInfoService = new PersonInfoService(fileService);
             var menuService = new MenuService(personInfoService);
 
-            // Show the main menu
+            // Visar Main Menu.
             menuService.ShowMainMenu();
         }
     }
